@@ -5,6 +5,8 @@ import { HttpClient } from "./httpClient/httpClient";
 import { LocalTokenRepository } from "./repository/LocalTokenRepository";
 import { AuthService } from "./service/AuthService";
 import { AuthProvider } from "./context/AuthContext";
+import { TodoService } from "./service/TodoService";
+import { TodoProvider } from "./context/TodoContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -14,9 +16,12 @@ const httpClient = new HttpClient(
   tokenRepository
 );
 const authService = new AuthService(httpClient, tokenRepository);
+const todoService = new TodoService(httpClient);
 
 root.render(
   <AuthProvider authService={authService}>
-    <App />
+    <TodoProvider todoService={todoService}>
+      <App />
+    </TodoProvider>
   </AuthProvider>
 );
